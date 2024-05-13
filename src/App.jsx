@@ -9,8 +9,9 @@ import { initialItems } from "./lib/constants";
 function App() {
   const [items, setItems] = useState(initialItems);
 
+  //Best practice
+  //We centralized the functions that handle the state of the items in the App component
   //All the logic for adding and removing items will be handled here
-  //The functions will be passed down to the Sidebar component
   //This is the cleanest way to manage the state of the items
 
   const handleAddItem = (newItemText) => {
