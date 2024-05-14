@@ -66,12 +66,17 @@ function App() {
     setItems(updatedItems);
   };
 
+  //counter logic
+  const totalItems = items.length;
+
+  const totalItemsPacked = items.filter((item) => item.packed).length;
+
   return (
     <>
       <BackgroundHeading />
 
       <main>
-        <Header />
+        <Header totalItems={totalItems} totalItemsPacked={totalItemsPacked} />
         <ItemList
           items={items}
           handleDeleteItem={handleDeleteItem}
