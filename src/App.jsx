@@ -7,7 +7,9 @@ import Sidebar from "./components/Sidebar";
 import { initialItems } from "./lib/constants";
 
 function App() {
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState(() => {
+    return JSON.parse(localStorage.getItem("items")) || initialItems;
+  });
 
   //counter logic
   const totalItems = items.length;

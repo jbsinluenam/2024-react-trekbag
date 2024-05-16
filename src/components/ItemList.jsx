@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { EmptyView } from "./EmptyView";
 import Select from "react-select";
 
@@ -24,15 +24,24 @@ export default function ItemList({
 }) {
   const [sortBy, setSortBy] = useState("default");
 
-  const sortedItems = [...items].sort((a, b) => {
-    if (sortBy === "packed") {
-      return b.packed - a.packed;
-    } else if (sortBy === "unpacked") {
-      return a.packed - b.packed;
-    } else {
-      return 0;
-    }
-  });
+  //Why do we use useMemo here?
+  //We use useMemo to sort the items based on the sortBy value.
+  //This way, we can avoid sorting the items on every render.
+  //We only sort the items when the sortBy value changes.
+
+  const sortedItems = useMemo(
+    () =>
+      [...items].sort((a, b) => {
+        if (sortBy === "packed") {
+          return b.packed - a.packed;
+        } else if (sortBy === "unpacked") {
+          return a.packed - b.packed;
+        } else {
+          return;
+        }
+      }),
+    [items, sortBy]
+  );
 
   return (
     <ul className="item-list">
