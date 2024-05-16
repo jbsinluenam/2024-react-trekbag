@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundHeading from "./components/BackgroundHeading";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -8,6 +8,11 @@ import { initialItems } from "./lib/constants";
 
 function App() {
   const [items, setItems] = useState(initialItems);
+
+  //counter logic
+  const totalItems = items.length;
+
+  const totalItemsPacked = items.filter((item) => item.packed).length;
 
   //Best practice
   //We centralized the functions that handle the state of the items in the App component
@@ -66,10 +71,9 @@ function App() {
     setItems(updatedItems);
   };
 
-  //counter logic
-  const totalItems = items.length;
-
-  const totalItemsPacked = items.filter((item) => item.packed).length;
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   return (
     <>
